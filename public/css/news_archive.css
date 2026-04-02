@@ -1,0 +1,63 @@
+.news-archive-container {
+    max-width: 1000px;
+    margin: 120px auto 60px; /* ヘッダー分空ける */
+    padding: 0 20px;
+}
+
+.archive-title {
+    font-family: 'Dela Gothic One', cursive;
+    font-size: 2rem;
+    color: #ff4fa3;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+/* カテゴリバッジの装飾 */
+.cat-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 15px;
+    border: 1px solid #9fa2bc;
+    color: #9fa2bc;
+}
+.cat-badge.info { border-color: #00ffcc; color: #00ffcc; }
+.cat-badge.code { border-color: #ffcc00; color: #ffcc00; }
+.cat-badge.study { border-color: #003cff; color: #003cff;}
+.cat-badge.blog { border-color: #8c00ff; color: #8c00ff;}
+.cat-badge.up { border-color: #ff4fa3; color: #ff4fa3; }
+
+/* ページネーション */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.pg-btn {
+    background: transparent;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-family: 'Dela Gothic One', cursive;
+    transition: 0.3s;
+}
+
+.pg-btn:hover:not(:disabled) {
+    border-color: #ff4fa3;
+    color: #ff4fa3;
+}
+
+.pg-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+#page-numbers {
+    color: #888;
+    font-family: monospace;
+}
