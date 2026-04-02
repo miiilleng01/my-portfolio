@@ -8,7 +8,7 @@ const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 const scoreEl = document.getElementById('score-display');
 const startScreen = document.getElementById('start-screen');
-const startButton = document.getElementById('start-button'); // 👈 ボタンを取得
+const startButton = document.getElementById('start-button');
 
 // --- 1. 画面サイズに合わせてキャンバスを調整 ---
 function resizeCanvas() {
@@ -33,7 +33,10 @@ function resetIdleTimer() {
         }, IDLE_LIMIT);
     }
 }
+
+// マウスとタッチの両方でタイマーリセット
 window.addEventListener('mousemove', resetIdleTimer);
+window.addEventListener('touchstart', resetIdleTimer);
 
 // --- 3. 画像のプリロード ---
 const imgCat = new Image(); imgCat.src = '/img/game/cat.png';
@@ -53,12 +56,12 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 /**
- * 🚀 ゲーム開始！（ボタンから呼ばれる）
+ * 🚀 ゲーム開始！
  */
 function startGame() {
-    if (gameActive) return; // 二重起動防止
+    if (gameActive) return;
     
-    startScreen.style.display = 'none'; // スタート画面を隠す
+    startScreen.style.display = 'none';
     gameActive = true;
     startTime = Date.now();
     resetIdleTimer();
@@ -68,10 +71,15 @@ function startGame() {
 }
 
 /**
- * ✨ ボタンにクリックイベントを登録！
+ * ✨ ボタンにクリック＆タッチイベントを登録！
  */
 if (startButton) {
     startButton.addEventListener('click', startGame);
+    // スマホでの誤作動防止と反応速度アップ
+    startButton.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startGame();
+    }, { passive: false });
 }
 
 // 自動連射
@@ -96,19 +104,31 @@ function spawnItem() {
     setTimeout(spawnItem, 800 + Math.random() * 1000);
 }
 
-// 操作
+// --- 4. 操作システム（PC & スマホ） ---
+
+// マウス操作
 window.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     player.x = e.clientX - rect.left;
 });
 
-// メインループ
+// スマホ用のタッチ操作を追加
+window.addEventListener('touchmove', (e) => {
+    // 画面スクロールを禁止して操作しやすくする
+    if (gameActive) e.preventDefault(); 
+    const rect = canvas.getBoundingClientRect();
+    // 指一本目の位置を取得
+    player.x = e.touches[0].clientX - rect.left;
+    resetIdleTimer();
+}, { passive: false });
+
+// --- 5. メインループ ---
 function update() {
     if (!gameActive) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 1. 弾
+    // 弾の処理
     bullets.forEach((b, bi) => {
         b.y -= b.speed;
         ctx.fillStyle = "#ffff00";
@@ -116,7 +136,7 @@ function update() {
         if (b.y < 0) bullets.splice(bi, 1);
     });
 
-    // 2. アイテム
+    // アイテムの処理
     items.forEach((item, ii) => {
         item.y += item.speed;
         const targetImg = item.type === 'fish' ? imgFish : imgPoison;
@@ -149,7 +169,7 @@ function update() {
         if (item.y > canvas.height) items.splice(ii, 1);
     });
 
-    // 3. 猫
+    // 猫の描画
     if (imgCat.complete) {
         const ratio = imgCat.naturalHeight / imgCat.naturalWidth;
         const drawW = player.size;
