@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genius Shooting Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+    <div id="start-screen">
+        <div class="start-content">
+            <h1>NEKO SHOOTING</h1>
+            <p>
+                魚を撃って50点を目指せ<br>
+                毒に当たると減点
+            </p>
+            <button id="start-button">START</button>
+        </div>
+    </div>
+
+    <div id="ui-layer">
+        <div id="score-display">Point: 10</div>
+        </div>
+
+    <canvas id="game-canvas"></canvas>
+
+    <script type="module" src="game.js"></script>
+</body>
+</html>

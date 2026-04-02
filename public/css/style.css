@@ -1,0 +1,852 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+background:#0f0f0f;
+color:white;
+font-family:"Kaisei Decol",serif;
+margin:0;
+overflow-x:hidden;
+}
+
+
+
+
+
+.progress{
+position:fixed;
+top:0;
+left:0;
+height:3px;
+background:#ff4fa3;
+width:0%;
+z-index:100;
+}
+
+.parallax-bg{
+position:fixed;
+width:100%;
+height:120%;
+/* background:url("img/bg.jpg") center/cover; */
+z-index:-2;
+}
+
+#particles{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:-1;
+}
+
+.container{
+width:90%;
+margin:auto;
+}
+
+.works-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.works{
+display:flex;
+gap:20px;
+scroll-behavior: smooth;
+ overflow-x: auto;
+padding: 10px 0;
+overflow-x: auto;
+scroll-behavior: smooth;
+-ms-overflow-style: none;
+
+}
+
+.works::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* トップh1共通サイズ設定 */
+.top {
+    font-family:"Dancing Script", cursive;
+    font-size: clamp(30px, 25vw, 80px); 
+    line-height: 1.2;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* ファーストビュー用ラッパー */
+.top-wrapper {
+    height: 110vh; 
+              
+    display: flex;
+    justify-content: center; 
+    align-items: center;      
+    overflow: hidden;       
+    padding: 0 20px;       
+    box-sizing: border-box;
+}
+
+/* スマホ用調整 */
+@media (max-width: 1024px) {
+    .top {
+        font-size: clamp(16px, 16vw, 80px);
+    }
+    .top-wrapper {
+      min-height: 110vh;
+        padding: 0 10px;
+    }
+}
+
+/* 共通設定 */
+/* --- 修正版：メッセージセットのレスポンシブ設定 --- */
+
+/* 共通設定（PC・基本サイズ） */
+.message-set {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap; /* 絶対に折り返さない */
+  gap: 20px; 
+  margin-bottom: 40px;
+}
+
+.message-set img {
+  width: 40%;
+  flex-shrink: 0; /* 画像が潰れないように固定 */
+}
+
+.message-right {
+  flex-shrink: 1;
+  text-align: right;    /* ★中の文字を右揃えにする */
+  margin-left: auto;
+}
+
+/* 文字サイズ：clampの第2引数（vw）を少し下げて、縮みやすく調整 */
+.message-set h2 {
+    font-size: clamp(16px, 4vw, 40px); 
+}
+
+.message-set div.message,
+.message-set div.message-right {
+    font-size: clamp(12px, 2vw, 30px);
+}
+
+/* 画面幅が1024px以下の場合（ここを3分の2に修正） */
+@media (max-width: 1024px) {
+    .message-set h2 {
+        /* 40pxの約3分の2 → 26px */
+        font-size: 22px;
+    }
+    
+    .message-set div.message,
+    .message-set div.message-right {
+        /* 25pxの約3分の2 → 16px */
+        font-size: 16px;
+        line-height: 1.4; /* 行間を少し詰めてスッキリさせる */
+    }
+
+    /* 左右の余白を少し調整してハミ出しを防止 */
+    .message-set {
+        gap: 10px;
+        padding: 0 10px;
+    }
+}
+
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  border: none;
+  font-size: 24px;
+  width: 40px;
+  height: 60px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
+
+.card{
+  position: relative;
+  flex: 0 0 260px;
+  width: 260px;
+  background: #111;
+  border: 1px solid #333;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,0.06),
+    0 6px 18px rgba(0,0,0,.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+  transform-style: preserve-3d;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.section .works{
+  perspective: 900px;
+}
+
+
+
+/* カード全体の反射 */
+.card::after{
+  content:"";
+  position:absolute;
+  inset:-60%;
+  background:linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,0.25) 48%,
+    rgba(255,255,255,0.08) 52%,
+    transparent 60%
+  );
+
+  transform: translate(-120%, -120%);
+  transition: transform .8s ease;
+
+  pointer-events:none;
+  z-index:10;
+}
+
+.card:hover::after{
+  transform: translate(120%,120%);
+}
+
+.card .image{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card img,
+.card iframe,
+.card video{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  position:relative;
+  z-index:1;
+}
+
+.card .image .title{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:3;
+  background:rgba(0,0,0,0.5);
+  padding:6px;
+  font-size:14px;
+}
+
+.card p{
+  padding:8px 10px;
+  font-size:14px;
+  line-height:1.4;
+  color:#fff;
+  height:60px;
+  overflow:hidden;
+}
+
+.maximize-btn{
+  display:none;
+}
+
+video::-internal-media-controls-download-button {
+  display:none;
+}
+
+video::-webkit-media-controls-enclosure {
+  overflow:hidden;
+}
+
+/* .card .actions{
+  display:flex;
+  justify-content:space-between;
+  padding:5px 10px;
+} */
+
+img{
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:auto;
+}
+
+/* ウォーターマーク全体 */
+.image-watermark {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 格子線レイヤー */
+.image-watermark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9;
+  opacity: 1;
+
+  /* 斜め格子線 */
+  background-image:
+    repeating-linear-gradient(-30deg, transparent 0px, transparent 120px, rgba(255,255,255,0.1) 165px, transparent 170px),
+    repeating-linear-gradient(60deg, transparent 0px, transparent 120px, rgba(255,255,255,0.1) 165px, transparent 170px);
+  background-size: auto, auto;
+  background-repeat: repeat, repeat;
+}
+
+/* 交点画像レイヤー */
+.image-watermark .watermark {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.15;
+
+  background-image:
+    url("/img/index/logo_watermark.png");
+    /* repeating-radial-gradient(
+      circle at 0 0,
+      rgba(0,0,0,1) 0px
+    ); */
+  background-repeat: repeat;
+  background-size: 120px 120px;
+  
+
+
+  /* 交差点画像のサイズを格子に合わせる */
+  background-size: 120px 120px, 120px, 120px;
+  background-repeat: repeat, repeat;
+
+  /* 斜め回転も可能 */
+  transform: rotate(-30deg) scale(1.4);
+
+  filter: brightness(1.05);
+
+  background-position: -20px 0; /* 左に20pxずらす */
+}
+
+
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,0.12),
+    0 14px 40px rgba(0,0,0,.7);
+}
+
+.more-btn{
+  flex:0 0 auto;
+  align-self:flex-end;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ff4fa3;
+  font-weight:900 !important;
+  height:60px;
+  padding:0 20px;
+  border-radius:5px;
+  cursor:pointer;
+  white-space:nowrap;
+  font-size:16px;
+}
+
+.new{
+  position:absolute;
+  top:6px;
+  left:6px;
+  background:#ff4fa3;
+  color:white;
+  font-size:11px;
+  padding:3px 7px;
+  font-weight:bold;
+  z-index:5;
+}
+
+.actions{
+  margin-top:auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:16px;
+  padding:14px 0;
+}
+
+.actions button {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:none;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+}
+
+.like {
+  position: relative;
+}
+
+.like.isliked {
+  color: #ff4fa3;
+  transform: scale(1.1);
+}
+
+.heart-pop {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  animation: heartPop 0.9s forwards;
+  pointer-events: none;
+}
+
+@keyframes heartPop {
+  0% { transform: translate(-50%,0) scale(.6); opacity: 1; }
+  100% { transform: translate(-50%,-60px) scale(1); opacity: 0; }
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #333;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* トースト通知 */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #222;
+  padding: 10px 20px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: .3s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 動画用モーダル */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  padding-top: 56.25%; /* 16:9 */
+}
+
+.modal-content iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-close {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+/* 背景用ロゴシャドウ */
+/* 背景用ロゴシャドウ：画面中央に固定 */
+.logo_shadow {
+    position: fixed;        
+    top: 50%;   
+    left: 50%;   
+    /* translate(-50%, -50%) がないと、画像の「左上」が中央になってズレます */
+    transform: translate(-50%, -50%); 
+    
+    opacity: 0.2; 
+    z-index: -1; 
+    pointer-events: none; 
+
+    /* スマホでもPCでも画面幅に対して適切なサイズに */
+    width: 70vw;
+    max-width: 500px;              
+    height: auto;
+}
+
+/* --- 詳細ページ --- */
+
+/* 全体のレイアウト：画像が上、情報が下の縦並び中央寄せ */
+#work-detail.detail-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100% - 150px);
+    padding: 40px 0;
+}
+
+/* 1. メディア（画像・動画）エリア */
+.detail-left {
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    margin-top: 80px;
+    margin-bottom: 30px;
+    padding: 0 30px; 
+}
+
+/* 透かしの親要素：サイズを画像にピッタリ合わせる */
+.detail-left .image-watermark {
+    position: relative;
+    display: inline-block; /* 中身の画像サイズに縮める */
+    line-height: 0; /* 画像下の隙間を排除 */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.detail-left .image-watermark:hover {
+    transform: scale(1.01);
+}
+
+/* 画像・動画本体のサイズ制限 */
+.detail-main-media {
+    width: auto;
+    max-width: 100%; 
+    max-height: 600px; /* 縦幅最大600px */
+    display: block;
+    object-fit: contain;
+    border-radius: 0; 
+    box-shadow: none; 
+}
+
+/* 2. 情報表示エリア（タイトル・説明・アクション） */
+.detail-right {
+    width: 100%;
+    max-width: 900px; /* 読みやすい幅に制限 */
+    padding: 0 30px;
+}
+
+.detail-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    font-family: 'Kaisei Decol', serif;
+}
+
+.detail-desc {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    white-space: pre-wrap; /* 改行を反映させる */
+}
+
+.detail-tags {
+    margin-bottom: 30px;
+}
+
+.detail-tags .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin: 0 8px 8px 0;
+    font-size: 0.85rem;
+}
+
+/* 3. アクションエリア：右寄せ設定 */
+.detail-actions {
+    display: flex;
+    justify-content: flex-end !important; /* ★右寄せ */
+    align-items: center;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* 区切り線 */
+}
+
+/* ボタンのスタイルを他ページ（カード）の雰囲気に合わせる */
+.detail-actions .like-btn,
+.detail-actions .share-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.detail-actions .like-btn:hover,
+.detail-actions .share-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* いいね済み状態 */
+.detail-actions .like-btn.isliked {
+    color: #ff4fa3;
+    border-color: #ff4fa3;
+    background: rgba(255, 79, 163, 0.1);
+}
+
+/* 一覧へ戻るボタン（左側に置きたい場合） */
+.back-link {
+    margin-right: auto; /* ★これのおかげで「戻る」だけ左端、他は右端に分かれる */
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.back-link:hover {
+    opacity: 1;
+}
+
+/* 動画・YouTubeカードに重ねる再生アイコン */
+.play-icon-overlay {
+    /* 配置：親要素(.image)の絶対中央 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* 見た目 */
+    font-size: 40px;          /* アイコンの大きさ */
+    color: rgba(255, 255, 255, 0.85); /* 少し透けた白 */
+    z-index: 15;              /* 画像やウォーターマークより上 */
+    pointer-events: none;     /* アイコンがクリックの邪魔をしないようにする */
+    
+    /* 影：白いアイコンを見やすくする */
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    
+    /* アニメーションの準備 */
+    transition: all 0.3s ease;
+}
+
+/* カードにマウスを乗せた時の演出 */
+.card:hover .play-icon-overlay {
+    /* 少し大きくして、アクセントカラーに変更 */
+    transform: translate(-50%, -50%) scale(1.2);
+    color: #ff4fa3; 
+}
+
+/* 動画セクション内のカードだけ透かしを消す */
+.section[data-type="video"] .image-watermark::before,
+.section[data-type="video"] .image-watermark .watermark {
+    display: none !important;
+}
+
+/* --- 修正版：切り替えアニメーション --- */
+
+.reveal {
+  opacity: 0;
+  /* translate の初期値を設定（動かさない状態を0にする） */
+  --x: 0px;
+  --y: 0px;
+  transform: translate(var(--x), var(--y));
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 各方向に「ずらす量」だけを指定する */
+.reveal-left   { --x: -100px; }
+.reveal-right  { --x: 100px; }
+.reveal-bottom { --y: 60px; }
+
+/* activeになったら、ずらしていた距離を 0 に戻す */
+.reveal.active {
+  opacity: 1;
+  --x: 0px;
+  --y: 0px;
+}
+
+
+/* ==========================================
+   Footer: Layout & Navigation
+   ========================================== */
+
+/* フッター全体 */
+.site-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    margin-top: 20px;
+    padding: 30px 0 15px;
+    background: rgba(0, 0, 0, 0.5); /* 背後のパーティクルを透かす */
+}
+
+/* 上段コンテンツ（ロゴ・ナビ・SNS）を収める横幅 */
+.footer-top-row {
+    display: flex;
+    justify-content: space-between; /* 要素を左右・中央に等間隔配置 */
+    align-items: center;
+    width: 90%;                     /* 左右に5%ずつの余白（ゆとり） */
+    max-width: 1200px;
+    margin: 0 auto 30px;            /* 下のギミックとの間隔を確保 */
+    flex-wrap: wrap;
+}
+
+/* ロゴエリア */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    gap: 15px;
+}
+.footer-logo img {
+    height: 80px; /* お好みに合わせて調整 */
+}
+.footer-logo span {
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    color: #fff;
+}
+
+/* --- 【修正】ナビゲーションメニュー --- */
+.footer-nav {
+    display: flex;
+    /* 隙間を可変に：最小15px、推奨3vw、最大50px */
+    gap: clamp(15px, 3vw, 50px); 
+    padding: 0 20px;
+}
+
+.footer-nav a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: clamp(13px, 1.2vw, 15px);
+    transition: all 0.3s ease;
+    
+    /* 1. 文字自体の間隔を少し広げる (0.1em 〜 0.2em くらいがおすすめ) */
+    letter-spacing: 0.15em; 
+    
+    /* 2. リンクの左右に少しだけマージンを足して「隙間」を固定で確保 */
+    margin: 0 5px; 
+    
+    display: inline-block; /* marginやtransformを確実に効かせるため */
+    white-space: nowrap;
+}
+
+.footer-nav a:hover {
+    color: #ff4fa3;
+    text-shadow: 0 0 8px rgba(255, 79, 163, 0.6);
+    transform: translateY(-2px);
+}
+
+/* SNS簡易リンク */
+.footer-sns-mini {
+    display: flex;
+    gap: clamp(10px, 2vw, 25px);
+    padding-right: 20px;
+}
+.footer-sns-mini a {
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s;
+}
+.footer-sns-mini a:hover {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+/* コピーライト表示 */
+.copyright {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 15px;
+    width: 100%;
+}
+.copyright p {
+    font-size: 11px;
+    color: #666;
+    margin: 0;
+}
+
+/* レスポンシブ：タブレット以下 */
+@media screen and (max-width: 768px) {
+    .footer-top-row {
+        flex-direction: column; /* 縦並びに変更 */
+        gap: 25px;
+        text-align: center;
+    }
+    .footer-logo { padding-left: 0; }
+    .footer-sns-mini { padding-right: 0; }
+    
+    .footer-nav {
+        flex-wrap: wrap;    /* スマホでは入りきらない場合のみ折り返す */
+        justify-content: center;
+    }
+}
+
+
+/* --- コンテンツごとの微調整 --- */
+.message-set img {
+    transition: transform 0.8s ease-out;
+}
+
+.message-set.active img {
+    transform: scale(1.05); /* 画面に入った時に少し大きくする */
+}
+
+
+
+/* スマホ対応：縦が詰まりすぎないように調整 */
+@media (max-width: 1024px) {
+    .detail-main-media {
+        max-height: 70vh; /* スマホでは画面高さの7割を上限に */
+    }
+    .detail-title {
+        font-size: 1.6rem;
+    }
+
+    .detail-left {
+        /* margin-top: 80px;  */
+        padding: 0 20px;
+    }
+}
+
+

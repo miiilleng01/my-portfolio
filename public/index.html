@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon2.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/sns.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/news/news.css">
+    <link rel="stylesheet" href="/css/admin-door.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    <title>Mii'sCamvas</title>
+</head>
+<body>
+
+<div class="progress"></div>
+<div class="parallax-bg"></div>
+<canvas id="particles"></canvas>
+
+<header>
+  <div class="header-inner">
+    <a href="/index.html" class="logo-link">
+      <div class="logo-text">
+        <img src="img/index/logo.png" alt="Logo">
+        <span class="header-text">満身創痍でダラダラするMiiさん</span>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <a href="/portfolio/portfolio.html#illust">イラスト</a>
+      <a href="/portfolio/portfolio.html#web">Webサイト・アプリ</a>
+      <a href="/portfolio/portfolio.html#video">動画</a>
+      <a href="/portfolio/portfolio.html#graphic">グラフィックデザイン</a>
+      <a href="#sns">SNS</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="mobile-menu">
+    <a href="portfolio/portfolio.html#illust">イラスト</a>
+    <a href="/portfolio/portfolio.html#web">Webサイト・アプリ</a>
+    <a href="/portfolio/portfolio.html#video">動画</a>
+    <a href="/portfolio/portfolio.html#graphic">グラフィックデザイン</a>
+    <a href="#sns">SNS</a>
+    <a href="#contact">お問い合わせ</a>
+  </div>
+</header>
+
+<div class="top-wrapper">
+    <h1 class="top title reveal reveal-bottom">
+        Mii's<br>
+        portfolio<br>
+        Multi-Creator<br>
+        &<br>
+        Engineer
+    </h1>
+</div>
+
+<div class="message-set left reveal">
+    <img src="img/index/tachie.png" alt="立ち絵実写">
+    <div class="message">
+        <h2>共に考える・創る・支える</h2>
+        理想となんか違う‥<br>
+        作ってもらったけど、その後どうすればいいかわからない‥<br>
+        Miiはとことん寄り添います!<br>
+        納得のいくものを一緒に作り、使っていきましょう！<br>
+    </div>
+</div>
+
+<div class="message-set right reveal">
+    <div class="message-right">
+        <h2>１からでも、途中からでも</h2>
+        素材作りから完成まで<br>
+        途中から運営まで<br>
+        ほしいもの、やってほしいこと、<br>
+        お気軽にお声がけください。<br>
+        貴方の欲しいを叶える手助けをします。
+    </div>
+    <img src="img/index/等身立ち絵.png" alt="等身立ち絵">
+</div>
+
+ <h1 class="title">News</h1>
+<section class="news-section reveal reveal-bottom">
+    <div class="container">
+        <div id="news-list" class="news-list">
+            </div>
+        <div class="news-footer">
+            <a href="news_archive.html" class="view-all">View All News</a>
+        </div>
+    </div>
+</section>
+
+
+<h1 class="title reveal reveal-bottom">Portfolio - 作品集</h1>
+
+<div id="tagFilter"></div>
+<main class="container">
+
+<section class="section" data-type="illust">
+<h2>イラスト</h2>
+<div class="works-wrapper">
+  <button class="scroll-btn left">＜</button>
+  <div class="works"></div>
+  <button class="scroll-btn right">＞</button>
+</div>
+</section>
+
+<section class="section" data-type="web">
+<h2>Webサイト・アプリ</h2>
+<div class="works-wrapper">
+  <button class="scroll-btn left">＜</button>
+  <div class="works"></div>
+  <button class="scroll-btn right">＞</button>
+</div>
+</section>
+
+<section class="section" data-type="video">
+<h2>動画</h2>
+<div class="works-wrapper">
+  <button class="scroll-btn left">＜</button>
+  <div class="works"></div>
+  <button class="scroll-btn right">＞</button>
+</div>
+</section>
+
+<section class="section" data-type="graphic">
+<h2>グラフィックデザイン</h2>
+<div class="works-wrapper">
+  <button class="scroll-btn left">＜</button>
+<div class="works"></div>
+  <button class="scroll-btn right">＞</button>
+</div>
+</section>
+
+<h1 class="title reveal reveal-bottom">SNS</h1>
+<div class="sns-links">
+  <div class="sns-item">
+    <img src="img/index/X.png" alt="X" class="sns-icon">
+    <div class="sns-text">
+      <a href="https://x.com/miiLibre" target="_blank" rel="noopener noreferrer">Work</a>
+      <a href="https://x.com/miiILLENG" target="_blank" rel="noopener noreferrer">Private</a>
+    </div>
+  </div>
+  <div class="sns-item">
+    <img src="img/index/Instagram.svg" alt="Instagram" class="sns-icon">
+    <div class="sns-text">
+      <a href="https://www.instagram.com/miiilleng2?igsh=dWFmNThrZjhodHhj" target="_blank" rel="noopener noreferrer">Work</a>
+      <a href="https://www.instagram.com/miilibre?igsh=NWlmZjc3bHdvNnEz" target="_blank" rel="noopener noreferrer">Private</a>
+    </div>
+  </div>
+  <div class="sns-item youtube">
+    <img src="/img/index/YouTube.png" alt="YouTube" class="sns-icon">
+    <a href="https://www.youtube.com/channel/UC4co3RZZ_pqOG6Z0GP2El5w" target="_blank" rel="noopener noreferrer" class="youtube-link">Channel</a>
+  </div>
+    <div class="sns-item">
+      <img src="/img/index/Line.png" alt="Line" class="sns-icon">
+        <div class="sns-text">
+        <a href="https://lin.ee/nx31UlBs" target="_blank" rel="noopener noreferrer">公式Line</a>
+        </div>
+    </div>
+</div>
+
+  <h1 class="title reveal reveal-bottom">問い合わせ</h1>
+<section class="contact-section reveal reveal-bottom">
+
+
+</section>
+<img src="img/index/logo_shadow.png" id="logo_shadow.png" class="logo_shadow" alt="背景ロゴシャドウ">
+  <form action="https://formspree.io/f/mlgpkvvn" method="POST" class="contact-form">
+          
+          <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+          </div>
+
+          <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" id="title" name="title" placeholder="お問い合わせ件名" required>
+          </div>
+
+          <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="こちらに内容をご記入ください" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">送信</button>
+          
+  </form>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    
+    <div class="footer-top-row">
+      <div class="footer-logo">
+        <img src="img/index/logo.png" alt="Footer Logo">
+        <span>Mii's Portfolio</span>
+      </div>
+      
+      <nav class="footer-nav">
+        <a href="portfolio/portfolio.html#illust">Illust</a>
+        <a href="portfolio/portfolio.html#web">Web</a>
+        <a href="portfolio/portfolio.html#video">Video</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="footer-sns-mini">
+        <a href="https://x.com/miiILLENG" target="_blank">𝕏</a>
+        <a href="https://www.instagram.com/miiilleng2" target="_blank">Instagram</a>
+      </div>
+    </div>
+
+    <div class="admin-door">
+      <div class="admin-fish">
+        <img src="img/index/魚.png" alt="魚">
+      </div>
+      <div class="admin-cat">
+        <div class="admin-cat-nomal">
+          <img src="img/index/猫.png" alt="猫">
+        </div>
+        <div class="admin-cat-open">
+          <img src="img/index/猫_open_01.png" alt="口を開けた猫">
+        </div>
+        <div class="admin-cat-correct">
+          <img src="img/index/猫_correct_01.png" alt="微笑む猫">
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>&copy; 2026 Mii All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="/js/script.js"></script>
+<script type="module" src="/news/news.js"></script>
+<script type="module" src="/js/game-door.js"></script>
+
+<div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            </div>
+    </div>
+</body>
+</html>

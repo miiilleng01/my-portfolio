@@ -1,0 +1,88 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #050505;
+    color: #00ffcc;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden; /* スクロール禁止 */
+    width: 100vw;
+    height: 100vh;
+}
+
+/* UIは画面上部に固定 */
+#ui-layer {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none; 
+}
+
+#score-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00ffcc;
+}
+
+#goal-display {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* キャンバスを画面いっぱいに広げる */
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+    cursor: crosshair;
+}
+
+/* --- 追加：スタート画面のスタイル --- */
+#start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.start-content {
+    text-align: center;
+    border: 2px solid #00ffcc;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(0, 255, 204, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+}
+
+.start-content h1 {
+    font-size: 3.5rem;
+    margin: 0 0 20px 0;
+    text-shadow: 0 0 15px #00ffcc;
+}
+
+#start-button {
+    background: #00ffcc;
+    color: #000;
+    border: none;
+    padding: 15px 50px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+#start-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #00ffcc;
+}

@@ -1,0 +1,186 @@
+
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(255,255,255,0.7);
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  margin: 0;
+}
+
+
+
+/* 内部配置 */
+.header-inner {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ロゴと文字を横並び */
+.logo-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-text img {
+  height: 70px;
+}
+
+.header-text {
+  color: #111;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+/* デスクトップ用ナビ */
+header .nav {
+  display: flex;
+  gap: 20px;
+}
+
+header .nav a {
+  color: #111;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+header .nav a:hover {
+  color: #ff4fa3;
+}
+
+
+
+
+/* ハンバーガー */
+.hamburger {
+  display: none; /* デスクトップでは非表示 */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  background: #111;
+  border-radius: 2px;
+}
+
+/* モバイルメニュー */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: rgba(255,255,255,0.9);
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 150px;
+  padding: 10px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+
+.mobile-menu a {
+  color: #111;
+
+  padding: 10px 20px;
+  text-decoration: none;
+  display: block;
+}
+
+.mobile-menu a:hover {
+  background: #ff4fa3;
+  color: white;
+}
+
+/* スマホサイズ */
+/* スマホサイズ (1024px以下) */
+@media screen and (max-width: 1024px) {
+  header .nav {
+    display: none; 
+  }
+
+  .hamburger {
+    display: flex;
+    /* ハンバーガーのサイズを少しコンパクトに調整（縦横比を安定させる） */
+    width: 40px; 
+    height: 25px;
+    margin-left: 2px; /* 右端に寄りすぎないように */
+  }
+
+  header {
+    height: 70px !important; /* 高さは維持 */
+    padding: 0 15px; /* 左右に少し余白 */
+  }
+
+  .logo-text img {
+    /* ヘッダー80pxに対して60px程度にすると、上下に余白ができて綺麗に見えます */
+    height: 40px; 
+    width: auto;
+  }
+  .logo-text{
+    font-size: 11px;
+  }
+
+  .header-text {
+    /* 24pxだとスマホでは少し大きい（ロゴと被る）場合があるので20px程度が安定 */
+    font-size: 15px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 文字が長すぎた場合に「...」にする保険 */
+  }
+
+  /* モバイルメニューのガタつき修正 */
+  .mobile-menu {
+    display: none; /* JSで制御 */
+    position: absolute;
+    top: 80px; /* ★ヘッダーの高さ(80px)とピッタリ合わせる */
+    right: 0;
+    width: 200px;
+    height: auto; /* コンテンツ量に合わせる */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom-left-radius: 10px;
+    box-shadow: -5px 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .mobile-menu a {
+    padding: 15px 20px;
+    font-size: 16px; /* 14pxより少し大きくしてタップしやすく */
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* 境界線を入れると見やすい */
+    line-height: 1.5;
+  }
+}
+
+/* デバッグ用：はみ出している要素を赤枠にする */
+/* * {
+    outline: 1px solid red !important;
+} */

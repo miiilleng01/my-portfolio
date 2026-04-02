@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon2.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/sns.css">
+    <link rel="stylesheet" href="/news/news.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    <title>News Detail | Mii'sCamvas</title>
+</head>
+
+<body class="news-detail-page">
+
+    <div class="progress"></div>
+    <div class="parallax-bg"></div>
+    <canvas id="particles"></canvas>
+
+<header>
+  <div class="header-inner">
+    <!-- index.htmlへの戻りもルートから -->
+    <a href="/" class="logo-link">
+      <div class="logo-text">
+        <img src="/img/index/logo.png" alt="Logo">
+        <span class="header-text">満身創痍でダラダラするMiiさん</span>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <!-- portfolioフォルダ内の各アンカーへ -->
+      <a href="/portfolio/portfolio.html#illust">イラスト</a>
+      <a href="/portfolio/portfolio.html#web">Webサイト・アプリ</a>
+      <a href="/portfolio/portfolio.html#video">動画</a>
+      <a href="/portfolio/portfolio.html#graphic">グラフィックデザイン</a>
+      <a href="/index.html#sns">SNS</a>
+      <a href="/index.html#contact">お問い合わせ</a>
+    </nav>
+
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="mobile-menu">
+    <a href="/portfolio/portfolio.html#illust">イラスト</a>
+    <a href="/portfolio/portfolio.html#web">Webサイト・アプリ</a>
+    <a href="/portfolio/portfolio.html#video">動画</a>
+    <a href="/portfolio/portfolio.html#graphic">グラフィックデザイン</a>
+    <a href="/index.html#sns">SNS</a>
+    <a href="/index.html#contact">お問い合わせ</a>
+  </div>
+</header>
+
+    <nav class="back-nav">
+        <a href="/index.html">← Back to Home</a>
+    </nav>
+
+    <main class="container">
+        <article id="news-content">
+            <p class="loading">Loading...</p>
+        </article>
+    </main>
+
+    <!-- 画像パスもルートから -->
+    <img src="/img/index/logo_shadow.png" class="logo_shadow" alt="背景ロゴシャドウ">
+
+  <div id="newsModal" class="news-modal">
+    <div class="news-modal-content">
+      <span class="news-modal-close">&times;</span>
+    </div>
+  </div>
+
+<!-- JSもルート起点で指定 -->
+<script type="module" src="/js/script.js"></script>
+<script type="module" src="/news/news-detail.js"></script>
+</body>
+</html>

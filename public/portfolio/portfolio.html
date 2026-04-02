@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/favicon2.ico">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/portfolio/portfolio.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+        <title>Mii'sCamvas</title>
+    </head>
+
+
+    <body>
+
+        <div class="progress"></div>
+
+        <div class="parallax-bg"></div>
+
+        <canvas id="particles"></canvas>
+
+
+        <header>
+        <div class="header-inner">
+            <a href="/index.html" class="logo-link">
+            <div class="logo-text">
+                <img src="/img/index/logo.png" alt="Logo">
+                <span class="header-text">満身創痍でダラダラするMiiさん</span>
+            </div>
+            </a>
+
+            <!-- デスクトップ用ナビ -->
+            <nav class="nav">
+            <a href="/portfolio/portfolio.html#illust">イラスト</a>
+            <a href="/portfolio/portfolio.html#web">Webサイト・アプリ</a>
+            <a href="/portfolio/portfolio.html#video">動画</a>
+            <a href="/portfolio/portfolio.html#graphic">グラフィックデザイン</a>
+            <a href="/index.html#sns">SNS</a>
+            <a href="/index.html#contact">お問い合わせ</a>
+            </nav>
+
+            <!-- ハンバーガー -->
+            <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            </div>
+        </div>
+
+        <!-- モバイル用メニュー -->
+        <div class="mobile-menu">
+            <link rel="icon" href="/favicon.ico">
+            <a href="/portfolio/portfolio.html#illust">イラスト</a>
+            <a href="/portfolio/portfolio.html#web">Webサイト・アプリ</a>
+            <a href="/portfolio/portfolio.html#video">動画</a>
+            <a href="/portfolio/portfolio.html#graphic">グラフィックデザイン</a>
+            <a href="/index.html#sns">SNS</a>
+            <a href="#contact">お問い合わせ</a>
+        </div>
+        </header>
+
+        <div class="filter-wrapper">
+            <div class="filter-container">
+                <button class="filter-btn active" data-tag="">すべて表示</button>
+                <div id="tag-container" style="display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center;"></div>
+            </div>
+        </div>
+
+        <section id="illust" class="content section" data-type="illust">
+        <h2>イラスト一覧</h2>
+        <div class="works"></div>
+        </section>
+
+        <section id="web" class="content section" data-type="web">
+        <h2>Webサイト・アプリ一覧</h2>
+        <div class="works"></div>
+        </section>
+
+        <section id="video" class="content section" data-type="video">
+        <h2>動画一覧</h2>
+        <div class="works"></div>
+        </section>
+
+        <section id="graphic" class="content section" data-type="graphic">
+        <h2>グラフィックデザイン一覧</h2>
+        <div class="works"></div>
+        </section>
+
+        <img src="/img/index/logo_shadow.png" id="logo_shadow.png" class="logo_shadow" alt="背景ロゴシャドウ">
+        <script type="module" src="portfolio.js"></script>
+    </body>

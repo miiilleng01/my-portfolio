@@ -1,0 +1,168 @@
+/* ==========================================
+   detail.css (整理・修正版)
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+.container{
+    margin-top: 30px;
+}
+
+/* 作品説明の下のURL表示エリア */
+.web-link-area {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 4px solid #ff4fa3;
+}
+
+.link-label {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.web-url-text {
+    color: #ff4fa3;
+    text-decoration: none;
+    font-family: monospace;
+    font-size: 14px;
+    word-break: break-all; /* 長いURLがはみ出ないように */
+    transition: opacity 0.3s;
+}
+
+.web-url-text:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+/* 1. ホバー演出の無効化 */
+.detail-left .image-watermark:hover,
+.card:hover, .card img, .card:hover img {
+    transform: none !important;
+    transition: none !important;
+}
+
+.card:hover {
+    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.06), 0 6px 18px rgba(0,0,0,.5) !important;
+}
+
+/* 2. モーダル基本設定 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    align-items: center;
+    justify-content: center;
+}
+.modal.show { display: flex; }
+
+/* 拡大画像ラッパー (画像サイズに吸着) */
+/* 拡大画像ラッパー：中身に1pxの隙間も許さない設定 */
+.modal-content-wrapper {
+    position: relative;
+    /* block ではなく flex にすることで、中の画像との隙間を強制的にゼロにします */
+    display: flex !important; 
+    flex-direction: column;
+    
+    /* 横幅・高さを画像サイズに完全に吸着させる */
+    width: fit-content !important;
+    height: fit-content !important;
+    
+    margin: auto;
+    padding: 0 !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
+    overflow: hidden;
+}
+
+/* 拡大画像本体 */
+.modal-content {
+    /* inline(文字) ではなく block(箱) にすることで行間の隙間を消滅させます */
+    display: block !important; 
+    max-width: 95vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    object-fit: contain;
+}
+
+/* 透かし：親(wrapper)が画像サイズになったので、inset:0 で完封 */
+.modal-content-wrapper.image-watermark::before,
+.modal-content-wrapper .watermark {
+    content: "";
+    position: absolute;
+    inset: 0 !important; /* top/left/right/bottom すべて 0 */
+    margin: 0 !important;
+    pointer-events: none;
+    z-index: 2010;
+}
+
+/* 付箋風リンクのエリア */
+.detail-links {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.sticky-link {
+    background: #ff4fa3; /* ピンク */
+    padding: 10px 20px;
+    transform: rotate(-2deg); /* ちょっと傾けるのがコツ */
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.sticky-link:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+.sticky-link a {
+    color: #fff !important;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 長すぎたら「...」にする */
+}
+
+.link-url-full {
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+/* 4. モバイルレスポンシブ (1024px以下) */
+@media (max-width: 1024px) {
+    /* ヘッダーに関連する指定（header, .logo-text, .header-text, .hamburger, .mobile-menu）をすべて削除しました */
+
+    /* 詳細ページ固有のレイアウト調整のみ残します */
+    .detail-left { 
+        margin-top: 30px; 
+    }
+
+    .detail-main-media { 
+        max-height: 70vh !important; 
+    }
+
+    .detail-actions { 
+        display: flex; 
+        justify-content: flex-end !important; 
+        gap: 15px; 
+    }
+
+    .back-link { 
+        margin-right: auto; 
+    }
+}

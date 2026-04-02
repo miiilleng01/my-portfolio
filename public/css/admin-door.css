@@ -1,0 +1,78 @@
+/* ==========================================
+   Admin Door Gimmick (Cat & Fish) - 修正版
+   ========================================== */
+
+.admin-door {
+    position: relative !important;
+    width: 90vw !important;
+    max-width: 1000px; 
+    height: 80px;
+    margin: 10px auto;
+    background: rgba(255, 255, 255, 0.001);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    touch-action: none; /* スマホスクロール防止 */
+    box-sizing: border-box;
+}
+
+/* 魚：移動の基準を absolute にする */
+.admin-fish {
+    position: absolute !important; /* これがないと動きません */
+    left: 10px;
+    width: 80px;  /* 少しサイズ調整 */
+    height: 60px;
+    cursor: grab;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+    /* transform: translateX(0); JSでここを上書きします */
+}
+
+.admin-fish:active { cursor: grabbing; }
+.admin-fish img { width: 100%; pointer-events: none; }
+
+/* 猫：右端に固定 */
+.admin-cat {
+    position: absolute !important;
+    right: 10px;   
+    width: 90px; 
+    height: 90px; /* max-heightではなくheightを固定 */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    pointer-events: none; 
+}
+
+/* 中の表情画像たちの重なり設定 */
+.admin-cat div {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+}
+
+/* ★nomalだけ初期状態で表示 */
+.admin-cat .admin-cat-nomal { opacity: 1; }
+
+.admin-cat div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* --- 表情の切り替え（!importantで確実に） --- */
+.admin-door.is-near .admin-cat-nomal { opacity: 0 !important; }
+.admin-door.is-near .admin-cat-open { opacity: 1 !important; }
+
+.admin-door.is-eaten .admin-cat-open { opacity: 0 !important; }
+.admin-door.is-eaten .admin-cat-correct { opacity: 1 !important; }
+
+/* 捕食されたら魚を消す */
+.admin-door.is-eaten .admin-fish {
+    opacity: 0 !important;
+    pointer-events: none;
+}

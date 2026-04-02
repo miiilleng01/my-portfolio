@@ -1,0 +1,64 @@
+.contact-section {
+    padding: 30px 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #333;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #ff4fa3; /* サイトカラー */
+    font-weight: bold;
+}
+
+.form-group input, 
+.form-group textarea {
+    background: #1a1a1a;
+    border: 1px solid #444;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ff4fa3;
+    box-shadow: 0 0 10px rgba(255, 79, 163, 0.2);
+}
+
+.submit-btn {
+    background: #ff4fa3;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s, background 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: #ff7eb3;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 79, 163, 0.4);
+}
