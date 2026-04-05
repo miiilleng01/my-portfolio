@@ -103,8 +103,10 @@ export async function loadWorks() {
         const newLabel = isNew ? `<span class="new">NEW</span>` : "";
 
         // タグ処理
-        const tags = (work.tags || []).filter(Boolean);
-        card.dataset.tags = tags.join(",");
+        // tagsが配列ならそのまま、文字列ならバラす、それ以外なら空配列にする
+        const rawTags = Array.isArray(work.tags) ? work.tags : (typeof work.tags === 'string' ? work.tags.replace(/[{}]/g, "").split(',') : []);
+        const tags = rawTags.filter(tag => tag && tag.trim() !== "");
+                card.dataset.tags = tags.join(",");
         card.dataset.id = workId;
 
         const serverLikes = work.like_count || 0;
