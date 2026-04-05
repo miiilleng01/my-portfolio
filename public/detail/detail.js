@@ -2,6 +2,7 @@
  * detail.js
  * 作品詳細表示 & いいね・シェア機能
  */
+const JAVA_URL = "https://my-portfolio-admin-vhpt.onrender.com";
 
 document.addEventListener("DOMContentLoaded", async () => {
     // 演出系の初期化（ui.jsなどが読み込まれている場合）
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
          * server.js の /api/works は、すでに SQL の LEFT JOIN で 
          * like_count (いいね数) も一緒に返してくれるように設定済み！
          */
-        const worksRes = await fetch("/api/works");
+        const worksRes = await fetch(`${JAVA_URL}/api/works`);
         
         if (!worksRes.ok) throw new Error("作品データの取得に失敗しました");
 
@@ -74,8 +75,24 @@ function renderWorkDetail(work) {
     // パスの補正 (先頭にスラッシュがない場合に付与)
     const fixPath = (p) => {
         if (!p) return "";
-        if (p.startsWith("http") || p.startsWith("/") || p.startsWith("data:")) return p;
-        return `/${p}`;
+        // すでに完全なURLならそのまま
+        if (p.startsWith("http") || p.startsWith("data:")) return p;
+        
+        // 先頭のスラッシュを整える
+        const cleanPath = p.startsWith("/") ? p : `/${p}`;
+        
+        // すでに /upload/img で始まっている場合
+        if (cleanPath.startsWith("/upload/img")) {
+            return `${JAVA_URL}${cleanPath}`;
+        }
+        
+        // /img で始まっている場合
+        if (cleanPath.startsWith("/img")) {
+            return `${JAVA_URL}/upload${cleanPath}`;
+        }
+        
+        // それ以外
+        return `${JAVA_URL}/upload/img${cleanPath}`;
     };
 
     const safeSrc = fixPath(work.image || work.link);
@@ -182,7 +199,8 @@ function setupActionEvents(work, workId) {
             localStorage.setItem("likedWorks", JSON.stringify(likedList));
 
             // APIへ送信（エンドポイントは server.js の app.post("/like") に合わせる）
-            fetch("/like", {
+            // --- 修正後 ---
+            fetch(`${JAVA_URL}/like`, { // ここに ${JAVA_URL} を足す！
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: workId, like: isNowLiked })
