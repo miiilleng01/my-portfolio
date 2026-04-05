@@ -1,4 +1,6 @@
-const API_BASE = ""; // 自分自身(Node.js)を経由するので空でOK
+const JAVA_URL = process.env.NEXT_PUBLIC_JAVA_API_URL || "https://my-portfolio-admin-vhpt.onrender.com";
+const API_BASE = "";
+
 
 /**
  * YouTubeのURLからIDを抽出
@@ -64,11 +66,17 @@ export async function loadWorks() {
         const card = document.createElement("div");
         card.className = "card fadein";
 
-        // 【ここ重要】DBのパスに「/upload/」をくっつけてプロキシを通す
+       // 【ここを修正！】DBのパスに JavaサーバーのURL をくっつけるニャ
         const fixPath = (path) => {
             if (!path) return "";
-            if (path.startsWith("http") || path.startsWith("/")) return path;
-            return `/upload/${path}`; 
+            // すでに http から始まっている場合はそのまま
+            if (path.startsWith("http")) return path;
+            
+            // JavaサーバーのURLと合わせる
+            const cleanPath = path.startsWith("/") ? path : `/${path}`;
+            
+            // Java側の設定に合わせて /upload/img を挟んであげる
+            return `${JAVA_URL}/upload/img${cleanPath}`; 
         }
 
         const safeSrc = fixPath(work.image || work.link);
