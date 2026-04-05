@@ -66,16 +66,26 @@ export async function loadWorks() {
         const card = document.createElement("div");
         card.className = "card fadein";
 
-       // 【ここを修正！】DBのパスに JavaサーバーのURL をくっつけるニャ
+       // DBのパスを賢く判定してURLを組み立てる（修正済）
         const fixPath = (path) => {
             if (!path) return "";
             // すでに http から始まっている場合はそのまま
             if (path.startsWith("http")) return path;
             
-            // JavaサーバーのURLと合わせる
+            // 先頭のスラッシュを整える（"/img/..." にする）
             const cleanPath = path.startsWith("/") ? path : `/${path}`;
             
-            // Java側の設定に合わせて /upload/img を挟んであげる
+            // もしDBのパスが既に "/upload/img" で始まっているなら、そのままURLをくっつける
+            if (cleanPath.startsWith("/upload/img")) {
+                return `${JAVA_URL}${cleanPath}`;
+            }
+            
+            // もしDBのパスが "/img" で始まっているなら、"/upload" だけ足して "/upload/img/..." にする
+            if (cleanPath.startsWith("/img")) {
+                return `${JAVA_URL}/upload${cleanPath}`;
+            }
+            
+            // それ以外（ファイル名だけとか）の場合は、いつものパスを挟む
             return `${JAVA_URL}/upload/img${cleanPath}`; 
         }
 
