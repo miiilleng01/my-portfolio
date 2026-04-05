@@ -1,13 +1,13 @@
 const JAVA_URL = "https://my-portfolio-admin-vhpt.onrender.com";
 const API_BASE = "";
 
-
 /**
- * YouTubeのURLからIDを抽出
+ * YouTubeのURLからIDを抽出（厳しめ判定版）
  */
 function getYouTubeID(url) {
     if (!url) return null;
-    const match = url.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
+    // youtube.com または youtu.be が含まれている場合のみ抽出
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([0-9A-Za-z_-]{11})/);
     return match ? match[1] : null;
 }
 
