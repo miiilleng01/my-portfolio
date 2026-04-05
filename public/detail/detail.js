@@ -1,18 +1,18 @@
 /**
  * detail.js
  * 作品詳細表示 & いいね・シェア機能
+ * 役割：データは Node.js から、画像は Java サーバーから取得するニャ！
  */
-const JAVA_URL = "https://my-portfolio-admin-vhpt.onrender.com";
+
+// 画像や動画が置いてある Java サーバーのアドレス
+const IMAGE_SERVER_URL = "https://my-portfolio-admin-vhpt.onrender.com";
+// データの取得先（Node.js 自身なので空文字で OK）
+const API_BASE = ""; 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // 演出系の初期化（ui.jsなどが読み込まれている場合）
     if (typeof initUI === "function") initUI();
     if (typeof initParticles === "function") initParticles();
 
-    /**
-     * 1. URLから作品IDを取得
-     * ?id=12 (クエリパラメータ) または #12 (ハッシュ) の両方に対応
-     */
     const urlParams = new URLSearchParams(window.location.search);
     const workId = urlParams.get('id') || window.location.hash.replace('#', '');
     
@@ -26,24 +26,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         /**
-         * 2. 作品データを取得
-         * server.js の /api/works は、すでに SQL の LEFT JOIN で 
-         * like_count (いいね数) も一緒に返してくれるように設定済み！
+         * 1. Node.js 側の API から全作品データを取得
+         * ※ Java サーバーではなく、自分のサーバー（/api/works）に聞きに行くニャ！
          */
-        const worksRes = await fetch(`${JAVA_URL}/api/works`);
+        const worksRes = await fetch(`${API_BASE}/api/works`);
         
         if (!worksRes.ok) throw new Error("作品データの取得に失敗しました");
 
         const works = await worksRes.json();
 
         /**
-         * 3. IDが一致する作品を抽出
-         * 文字列の前後空白を消して型を合わせて比較
+         * 2. IDが一致する作品を抽出
          */
         const work = works.find(w => String(w.id).trim() === String(workId).trim());
         
         if (work) {
-            // 修正ポイント：likesDataを別で渡さず、workオブジェクト一つで完結させる
             renderWorkDetail(work);
         } else {
             console.error("[Error] 一致する作品が見つかりません:", workId);
@@ -72,35 +69,26 @@ function renderWorkDetail(work) {
     const container = document.getElementById("work-detail");
     if (!container) return;
 
-    // パスの補正 (先頭にスラッシュがない場合に付与)
+    // パスの補正 (画像は Java サーバーの URL をくっつけるニャ)
     const fixPath = (p) => {
         if (!p) return "";
-        // すでに完全なURLならそのまま
         if (p.startsWith("http") || p.startsWith("data:")) return p;
         
-        // 先頭のスラッシュを整える
         const cleanPath = p.startsWith("/") ? p : `/${p}`;
         
-        // すでに /upload/img で始まっている場合
         if (cleanPath.startsWith("/upload/img")) {
-            return `${JAVA_URL}${cleanPath}`;
+            return `${IMAGE_SERVER_URL}${cleanPath}`;
         }
-        
-        // /img で始まっている場合
         if (cleanPath.startsWith("/img")) {
-            return `${JAVA_URL}/upload${cleanPath}`;
+            return `${IMAGE_SERVER_URL}/upload${cleanPath}`;
         }
-        
-        // それ以外
-        return `${JAVA_URL}/upload/img${cleanPath}`;
+        return `${IMAGE_SERVER_URL}/upload/img${cleanPath}`;
     };
 
     const safeSrc = fixPath(work.image || work.link);
     const ext = safeSrc.split('.').pop().toLowerCase();
     const workIdStr = String(work.id);
 
-    // --- 【修正ポイント】いいね数の取得 ---
-    // server.js の SQL (COALESCE(l.like_count, 0) AS like_count) から直接取得
     const likeCount = work.like_count || 0;
     const isLiked = JSON.parse(localStorage.getItem("likedWorks") || "[]").includes(workIdStr);
 
@@ -126,10 +114,9 @@ function renderWorkDetail(work) {
             </div>`;
     }
 
-    // --- リンクエリア（外部サイト等） ---
+    // --- リンクエリア ---
     let linkAreaHTML = "";
     const targetLink = work.link || "";
-
     if (targetLink && !ytID) {
         linkAreaHTML = `
             <div class="web-link-area">
@@ -140,8 +127,8 @@ function renderWorkDetail(work) {
             </div>`;
     }
 
-    // タグの生成
-    const tagsHTML = (work.tags || []).length > 0 
+    // タグの生成 (Node.js からは配列で届くはずニャ)
+    const tagsHTML = Array.isArray(work.tags)
         ? work.tags.map(t => `<span class="tag">#${t}</span>`).join('') 
         : "";
 
@@ -188,7 +175,6 @@ function setupActionEvents(work, workId) {
                 count++;
                 if (!likedList.includes(workId)) likedList.push(workId);
                 
-                // ハート演出
                 const heart = document.createElement("span");
                 heart.className = "heart-pop"; heart.textContent = "💗";
                 likeBtn.appendChild(heart); 
@@ -198,9 +184,8 @@ function setupActionEvents(work, workId) {
             countEl.textContent = count;
             localStorage.setItem("likedWorks", JSON.stringify(likedList));
 
-            // APIへ送信（エンドポイントは server.js の app.post("/like") に合わせる）
-            // --- 修正後 ---
-            fetch(`${JAVA_URL}/like`, { // ここに ${JAVA_URL} を足す！
+            // いいねの送信も Node.js 側（API_BASE）に送るニャ！
+            fetch(`${API_BASE}/like`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: workId, like: isNowLiked })
