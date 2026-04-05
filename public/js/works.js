@@ -1,4 +1,4 @@
-const JAVA_URL = process.env.NEXT_PUBLIC_JAVA_API_URL || "https://my-portfolio-admin-vhpt.onrender.com";
+const JAVA_URL = "https://my-portfolio-admin-vhpt.onrender.com";
 const API_BASE = "";
 
 
