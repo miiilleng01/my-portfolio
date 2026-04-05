@@ -60,6 +60,28 @@ app.get("/api/works", async (req, res) => {
   }
 });
 
+// 作品詳細（1件）取得
+app.get("/api/works/:id", async (req, res) => {
+  const { id } = req.params; // URLの :id を取得
+  try {
+    const sql = `
+      SELECT w.*, COALESCE(l.like_count, 0) AS like_count
+      FROM works w 
+      LEFT JOIN likes l ON w.id = l.work_id
+      WHERE w.id = $1
+    `;
+    const result = await pool.query(sql, [id]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Work not found" });
+    }
+    
+    res.json(result.rows[0]); // 1件だけ返す
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // お知らせ取得
 app.get("/api/news", async (req, res) => {
   try {
