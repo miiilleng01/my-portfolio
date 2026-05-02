@@ -20,8 +20,12 @@ const JAVA_SERVER_URL = process.env.JAVA_API_URL || "http://192.168.3.71:8080";
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+    require: true
+  },
+  max: 10,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000
 });
 
 app.use(express.urlencoded({ extended: true }));
