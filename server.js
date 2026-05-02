@@ -28,6 +28,14 @@ const pool = new Pool({
   connectionTimeoutMillis: 10000
 });
 
+pool.on('connect', () => {
+  console.log('DB connected');
+});
+
+pool.on('error', (err) => {
+  console.error('DB error:', err);
+});
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
