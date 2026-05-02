@@ -123,7 +123,7 @@ app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public/index.html"
 app.get("/portfolio", (req, res) => res.sendFile(path.join(__dirname, "public/portfolio/portfolio.html")));
 app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "public/admin/admin.html")));
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Node Server: http://localhost:${PORT}`);
     console.log(`🔗 Proxy Target (Java): ${JAVA_SERVER_URL}`);
 });
