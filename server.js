@@ -1,4 +1,6 @@
 require('dotenv').config();
+console.log(process.env.DATABASE_URL);
+
 const express = require("express");
 const path = require("path");
 const { createProxyMiddleware } = require('http-proxy-middleware');
